@@ -32,7 +32,9 @@ export const registerController = async (req, res) => {
    isVerified: false
   });
 
-  res.status(201).json({ message: "User registered successfully", user });
+  const token = generateToken(user._id, user.role);
+
+  res.status(201).json({ message: "User registered successfully", user, token });
  } catch (error) {
   console.error(error);
   res.status(500).json({ message: "Internal server error", error: error.message });
